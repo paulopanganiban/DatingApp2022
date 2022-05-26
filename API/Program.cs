@@ -6,7 +6,12 @@ ConfigurationManager configuration = builder.Configuration;
 IWebHostEnvironment environment = builder.Environment;
 // Add services to the container.
 // https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-6.0
+<<<<<<< HEAD
 var MyAllowSpecificOrigins = "http://localhost:4200";
+=======
+// rereview this
+var MyAllowSpecificOrigins = "AllowSpecificOrigins";
+>>>>>>> 8767d4ee540f5968bd8fe2017b5addbcb114cf9b
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -19,11 +24,13 @@ builder.Services.AddDbContext<DataContext>(options =>
 // add CORS
 builder.Services.AddCors(options =>
 {
+    // why we need the string? is it the key of the policy??
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:4200",
-                                              "http://www.contoso.com");
+                          
+                          policy.WithOrigins("https://localhost:4200",
+                                              "http://localhost:4200");
                       });
 });
 var app = builder.Build();
