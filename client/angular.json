@@ -27,11 +27,8 @@
               "src/assets"
             ],
             "styles": [
-<<<<<<< HEAD
-=======
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
->>>>>>> 8767d4ee540f5968bd8fe2017b5addbcb114cf9b
               "src/styles.css"
             ],
             "scripts": []
@@ -114,8 +111,4 @@
     }
   },
   "defaultProject": "client"
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8767d4ee540f5968bd8fe2017b5addbcb114cf9b
