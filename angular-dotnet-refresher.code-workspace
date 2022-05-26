@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"csharpextensions.useThisForCtorAssignments": false,
+		"csharpextensions.privateMemberPrefix": "_"
+	}
+}
