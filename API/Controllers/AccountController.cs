@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
@@ -43,8 +44,28 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
             return user;
         }
+        [HttpPost("login")]
+        public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+        {
+            // get user from the database
+            var user = await _context.Users.SingleOrDefaultAsync(user => user.UserName == loginDto.Username);
+            // we got a user or we didn't
 
-
+            // guard clause it
+            if (user == null) return Unauthorized("Invalid username");
+            // we got a user, now we need to calculate the hash using the passwordSalt key
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+            // workout the hash
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+            // computed is a byte array so we loop
+            // foreach()
+            for (int i = 0; i < computedHash.Length; i++)
+            {
+                // if the hash is not equal to the computed hash
+                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
+            }
+            return user;
+        }
         // export const function helper in React terms 
         // const UserExists = (username: string): boolean => {
         // _context.User.AnyAsync returns boolean
@@ -54,7 +75,7 @@ namespace API.Controllers
         // that can only be accessed to itself
         private async Task<bool> UserExists(string username)
         {
-            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+            return await _context.Users.AnyAsync(user => user.UserName == username.ToLower());
         }
     }
 }
