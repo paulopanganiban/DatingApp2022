@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,17 +17,20 @@ namespace API.Controllers
     // it is used to initialize the state of the class
     public class AccountController : BaseApiController
     {
+        // inject the service
         private readonly DataContext _context;
-        public AccountController(DataContext context)
+        private readonly ITokenService _tokenService;
+        public AccountController(DataContext context, ITokenService tokenService)
         {
             _context = context;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
         // Action result is the interface/class that provides the BadRequest, Ok, etc.
         // React terms is: const Register<Task<ActionResult<AppUser>>> = (registerDto: RegisterDtoProps)
         // 
-        public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.Username)) return BadRequest("User already exists");
             using var hmac = new HMACSHA512();
@@ -42,10 +46,14 @@ namespace API.Controllers
             _context.Users.Add(user);
             // we call our database here and save the user to the users table
             await _context.SaveChangesAsync();
-            return user;
+            return new UserDto
+            {
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
         }
         [HttpPost("login")]
-        public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             // get user from the database
             var user = await _context.Users.SingleOrDefaultAsync(user => user.UserName == loginDto.Username);
@@ -64,7 +72,11 @@ namespace API.Controllers
                 // if the hash is not equal to the computed hash
                 if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
             }
-            return user;
+            return new UserDto
+            {
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
         }
         // export const function helper in React terms 
         // const UserExists = (username: string): boolean => {
