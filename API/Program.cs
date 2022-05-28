@@ -1,7 +1,10 @@
+using System.Text;
 using API.Data;
 using API.Interfaces;
 using API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -27,11 +30,25 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          
+
                           policy.WithOrigins("https://localhost:4200",
                                               "http://localhost:4200");
                       });
 });
+// from the package JWTBearer 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"])),
+            // issuer is the server
+            ValidateIssuer = false,
+            // audience is our angular app
+            ValidateAudience = false
+        };
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,9 +62,13 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+// order matters
 app.UseCors(MyAllowSpecificOrigins);
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+// end order matters
 
 app.MapControllers();
 
