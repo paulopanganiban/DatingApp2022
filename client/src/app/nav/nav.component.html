@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Twinder</a>
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Matches</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Messages</a>
+      </li>
+    </ul>
+    <!-- tell angular this is a angular form -->
+    <!-- #loginForm="ngForm" -->
+    <!-- we now have access to onSubmit (React terms) (ngSubmit) and access 
+        to our functions inside the component-->
+    <form
+      autocomplete="off"
+      #loginForm="ngForm"
+      class="form-inline mt-2 mt-md-0"
+      (ngSubmit)="login()"
+    >
+      <!-- TWO WAY BINDINGS  -->
+      <!-- React terms is the e.target.value useState onChange 
+        handleChange combo =D -->
+      <!-- banana in a box. square brackets are receiving, and () is output -->
+      <!-- or in other words () is template (HTML) to component -->
+      <input
+        [(ngModel)]="form.username"
+        name="username"
+        class="form-control mr-sm-2"
+        type="text"
+        placeholder="Username"
+        aria-label="Search"
+      />
+      <input
+        [(ngModel)]="form.password"
+        class="form-control mr-sm-2"
+        name="password"
+        type="password"
+        type="text"
+        placeholder="Password"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        Login
+      </button>
+    </form>
+  </div>
+</nav>

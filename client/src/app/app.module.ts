@@ -6,11 +6,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavComponent } from './nav/nav.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     // we declare here the components available to use
-    AppComponent
+    AppComponent,
+    NavComponent
   ],
   // import angular modules
   imports: [
@@ -18,7 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     // make HTTP requests
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    // Angular package for handling forms
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
