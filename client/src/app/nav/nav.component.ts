@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-interface Form {
+import { AccountService } from '../services/account.service';
+export interface FormProps {
   username: string;
   password: string;
 }
@@ -11,13 +12,21 @@ interface Form {
 // in React terms = useState
 export class NavComponent implements OnInit {
   // [form, setForm] = useState<Form>({} as Form
-  form: Form = {} as Form;
-  constructor() { }
+  form: FormProps = {} as FormProps;
+  loggedIn: boolean = false;
+  // inject the account service we made
+  // useHook to madalas! HOLY SHENNANIGANS!
+  // https://blog.logrocket.com/dependency-injection-react/ react terms
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
   }
   // create func
   login() {
-    console.log(this.form)
+    this.accountService.login(this.form).subscribe({
+      // this.loggedIn = true is setLoggedIn(true) in React
+      next: response => { console.log(response); this.loggedIn = true},
+      error: error => console.log(error)
+    })
   }
 }
