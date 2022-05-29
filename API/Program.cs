@@ -31,8 +31,11 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
 
-                          policy.WithOrigins("https://localhost:4200",
-                                              "http://localhost:4200");
+                          policy
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .WithOrigins("https://localhost:4200",
+                          "http://localhost:4200");
                       });
 });
 // from the package JWTBearer 
