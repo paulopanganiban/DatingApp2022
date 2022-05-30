@@ -29,4 +29,8 @@ export class NavComponent implements OnInit {
       error: error => console.log(error)
     })
   }
+  logout() {
+    // setLoggedIn(false) in React
+    this.loggedIn = false
+  }
 }
