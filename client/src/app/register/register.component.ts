@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AccountService } from '../services/account.service';
 import { FormProps } from '../types/user';
 
 @Component({
@@ -12,12 +13,15 @@ export class RegisterComponent implements OnInit {
   @Input() usersFromHomeComponent: any;
   @Output() cancelRegisterFromRegisterComponent = new EventEmitter<boolean>();
   model: FormProps = {} as FormProps;
-  constructor() { }
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
   }
   register() {
-    console.log(this.model);
+    this.accountService.register(this.model).subscribe(
+      (response) => { this.cancel() },
+      (error) => { console.log(error) }
+    )
   }
   cancel() {
     this.cancelRegisterFromRegisterComponent.emit(false);
