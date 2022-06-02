@@ -15,6 +15,7 @@ import { MemberListComponent } from './member-list/member-list.component';
 import { MemberDetailComponent } from './member-detail/member-detail.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component'
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,11 @@ import { MessagesComponent } from './messages/messages.component'
     // Angular package for handling forms
     FormsModule,
     // ngx bootstrap
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    // toastr
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
