@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AccountService } from '../services/account.service';
 import { User } from '../types/user';
@@ -20,7 +21,7 @@ export class NavComponent implements OnInit {
   // inject the account service we made
   // useHook to madalas! HOLY SHENNANIGANS!
   // https://blog.logrocket.com/dependency-injection-react/ react terms
-  constructor(public accountService: AccountService) { }
+  constructor(public accountService: AccountService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentUser$ = this.accountService.currentUser$;
@@ -29,11 +30,13 @@ export class NavComponent implements OnInit {
   login() {
     this.accountService.login(this.form).subscribe({
       // this.loggedIn = true is setLoggedIn(true) in React
-      next: response => { console.log(response) },
+      // kinda like router.push('/members')
+      next: response => { this.router.navigateByUrl('/members') },
       error: error => console.log(error)
     })
   }
   logout() {
+    this.router.navigateByUrl('/')
     this.accountService.logout()
   }
 }
