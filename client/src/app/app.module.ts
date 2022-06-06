@@ -8,14 +8,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { MemberListComponent } from './member-list/member-list.component';
 import { MemberDetailComponent } from './member-detail/member-detail.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component'
-import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from './modules/shared.module';
 
 @NgModule({
   declarations: [
@@ -38,12 +37,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     // Angular package for handling forms
     FormsModule,
-    // ngx bootstrap
-    BsDropdownModule.forRoot(),
-    // toastr
-    ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right',
-    })
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
