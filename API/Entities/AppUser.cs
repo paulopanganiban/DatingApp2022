@@ -22,11 +22,11 @@ namespace API.Entities
         public string City { get; set; }
         public string Country { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public ICollection<Photo> Photos { get; set; }
         // Get is important in migrating the db
         public int GetAge()
         {
             return DateOfBirth.CalculateAge();
         }
-    public ICollection<Photo> Photos { get; set; }
     }
 }
