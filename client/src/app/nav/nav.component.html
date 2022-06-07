@@ -42,7 +42,7 @@
       *ngIf="accountService.currentUser$ | async as user"
       dropdown
     >
-      <a class="dropdown-toggle text-light">
+      <a class="dropdown-toggle text-light" dropdownToggle>
         <!-- instead of css text-transform: capitalize =O -->
         Welcome {{ user.username | titlecase }}
         <div class="dropdown-menu mt-3" *dropdownMenu>

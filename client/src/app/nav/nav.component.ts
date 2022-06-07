@@ -33,8 +33,7 @@ export class NavComponent implements OnInit {
     this.accountService.login(this.form).subscribe({
       // this.loggedIn = true is setLoggedIn(true) in React
       // kinda like router.push('/members')
-      next: response => { this.router.navigateByUrl('/members') },
-      error: error => { console.log(error); this.toastr.error(error.error) }
+      next: response => { this.router.navigateByUrl('/members') }
     })
   }
   logout() {
