@@ -27,6 +27,6 @@ namespace API.Entities
         {
             return DateOfBirth.CalculateAge();
         }
-    public ICollection<Photo> MyProperty { get; set; }
+    public ICollection<Photo> Photos { get; set; }
     }
 }
