@@ -17,7 +17,7 @@ namespace API.Data
         {
             if (await context.Users.AnyAsync()) return;
             var userData = await System.IO.File.ReadAllTextAsync(Path);
-              var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
+            var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
             if (users == null) return;
             foreach (var user in users)
             {
