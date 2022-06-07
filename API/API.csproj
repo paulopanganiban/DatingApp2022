@@ -8,6 +8,7 @@
 
   <ItemGroup>
   <!-- migration error fix: https://whatibroke.com/2021/01/23/net-5-0-this-package-is-required-for-the-entity-framework-core-tools-to-work/ -->
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />

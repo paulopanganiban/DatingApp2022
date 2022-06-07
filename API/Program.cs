@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Text;
 using API.Data;
+using API.Helpers;
 using API.Interfaces;
 using API.Middleware;
 using API.Services;
@@ -23,6 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 // https://stackoverflow.com/questions/70952271/startup-cs-class-is-missing-in-net-6
 builder.Services.AddDbContext<DataContext>(options =>
 {
