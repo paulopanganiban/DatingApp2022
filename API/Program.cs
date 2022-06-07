@@ -22,6 +22,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 // https://stackoverflow.com/questions/70952271/startup-cs-class-is-missing-in-net-6
 builder.Services.AddDbContext<DataContext>(options =>
 {
