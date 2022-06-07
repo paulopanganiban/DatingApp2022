@@ -24,9 +24,9 @@ namespace API.Entities
         public DateTime DateOfBirth { get; set; }
         public ICollection<Photo> Photos { get; set; }
         // Get is important in migrating the db
-        public int GetAge()
-        {
-            return DateOfBirth.CalculateAge();
-        }
+        // public int GetAge()
+        // {
+        //     return DateOfBirth.CalculateAge();
+        // }
     }
 }
