@@ -4,6 +4,7 @@ import { FormProps } from '../nav/nav.component'
 import { map } from 'rxjs/operators';
 import { User } from '../types/user';
 import { ReplaySubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 // in React terms parang helper function na nasa useEffect,
 // na susubscribe tayo once the component mounts
 // then unsubscribe on dismount
@@ -16,7 +17,7 @@ export class AccountService {
   // dollar sign at the end means its an observable
   currentUser$ = this.currentUserSource.asObservable();
   // slash last is impt
-  baseUrl = "https://localhost:5001/api/"
+  baseUrl = environment.apiUrl;
   // inject our http client in our account service
   // services are singleton!
   constructor(private http: HttpClient) {
